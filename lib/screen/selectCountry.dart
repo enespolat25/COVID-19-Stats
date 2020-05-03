@@ -1,6 +1,8 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterappmedium/object/country.dart';
+import 'package:flutterappmedium/object/global.dart';
+import 'package:flutterappmedium/widget/menu.dart';
 
 class SelectCountry extends StatefulWidget {
 
@@ -11,8 +13,8 @@ class SelectCountry extends StatefulWidget {
 
 class _SelectCountryState extends State<SelectCountry> {
 
-  Map data = {};
   List<Country> cLst;
+  Global gb;
 
   AutoCompleteTextField autoCompleteTextField;
   GlobalKey<AutoCompleteTextFieldState<Country>> key= new GlobalKey();
@@ -39,10 +41,10 @@ class _SelectCountryState extends State<SelectCountry> {
   @override
   Widget build(BuildContext context) {
 
-    data = ModalRoute.of(context).settings.arguments;
-    cLst = data["cLst"];
+    cLst = Country().cLst;
 
     return Scaffold(
+      drawer: Menu(),
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Change Country"),
@@ -103,14 +105,16 @@ class _SelectCountryState extends State<SelectCountry> {
                         )
                     );
                   }else {
-                    print(ip);
-                    print(cLst.where((i) => i.countryName == ip));
                     if(cLst.where((i) => i.countryName == ip).length > 0){
 
-                      Navigator.pushReplacementNamed(context, '/home', arguments: {
-                        'cN': autoCompleteTextField.textField.controller.text,
-                        'cLst': cLst
-                      });
+                      Country().setUserCountry(cLst.where((i) => i.countryName == ip).elementAt(0));
+
+
+                      Navigator.pushReplacementNamed(context, '/home');
+
+                      /*      Navigator.pushReplacementNamed(context, '/home', arguments: {
+                      'cN': autoCompleteTextField.textField.controller.text
+                    });*/
 
 
                     }

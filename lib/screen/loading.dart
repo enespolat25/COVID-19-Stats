@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutterappmedium/object/country.dart';
+import 'package:flutterappmedium/object/global.dart';
 import 'package:flutterappmedium/service/covid-service.dart';
 
 class Loading extends StatefulWidget {
@@ -21,8 +22,10 @@ class _LoadingState extends State<Loading> {
   }
 
   parseData(dynamic json){
+    Global.singleton().fromJson(json['Global']);
     var list = json['Countries'] as List;
     cLst = list.map((i) => Country.fromJson(i)).toList();
+    Country.singleton().setList(cLst);
   }
 
   @override

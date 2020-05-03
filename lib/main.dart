@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterappmedium/screen/donutchart.dart';
+import 'package:flutterappmedium/screen/global.dart';
 import 'package:flutterappmedium/screen/home.dart';
 import 'package:flutterappmedium/screen/loading.dart';
 import 'package:flutterappmedium/screen/selectCountry.dart';
@@ -22,6 +24,8 @@ class MyApp extends StatelessWidget {
         '/loading': (context) => Loading(),
         '/selectCountry': (context) => SelectCountry(),
         '/home': (context) => HomePage(),
+        '/global': (context) => GlobalPage(),
+        '/donut': (context) => Donut()
       },
     );
   }

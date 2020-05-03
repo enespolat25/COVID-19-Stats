@@ -1,35 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutterappmedium/object/country.dart';
+import 'package:flutterappmedium/object/global.dart';
 import 'package:flutterappmedium/widget/menu.dart';
 
-class HomePage extends StatefulWidget {
+class GlobalPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _GlobalPage createState() => _GlobalPage();
 }
 
-class _HomePageState extends State<HomePage> {
+class _GlobalPage extends State<GlobalPage> {
 
-  List<Country> cLst;
-  Country c;
+  Global gb;
 
   @override
   Widget build(BuildContext context) {
 
-    cLst = Country().getList();
-
-    if(Country().getUserCountry() != null){
-      c = Country().getUserCountry();
-    }else {
-      c = cLst.where((i) => i.countryName == "Peru").elementAt(0);
-      Country().setUserCountry(c);
-    }
+    gb = Global();
 
     return Scaffold(
 
         drawer: Menu(),
         appBar: AppBar(
           title: Text(
-              c.countryName + " Corona Statistics"
+              "Global" + " Corona Statistics"
           ),
         ),
 
@@ -45,7 +37,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                   padding: EdgeInsets.fromLTRB(0, 100, 0, 25),
                   child: FittedBox(
-                      child: Text(c.countryName.toUpperCase(),
+                      child: Text("global".toUpperCase(),
                         style: TextStyle(fontSize: 60, letterSpacing: 1,
                             color: Colors.white, fontWeight: FontWeight.w500
                         ),
@@ -58,7 +50,7 @@ class _HomePageState extends State<HomePage> {
                   Text("Total Confirmed: ",
                     style: TextStyle(fontSize: 25,color: Colors.white,
                         fontWeight: FontWeight.w700),),
-                  Text(c.totalConfirmed.toString(),
+                  Text(gb.totalConfirmed.toString(),
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 35,color: Colors.white))
                 ],
               ),
@@ -67,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Text("New Deaths: ",
                     style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25,color: Colors.white),),
-                  Text(c.newDeaths.toString(),
+                  Text(gb.newDeaths.toString(),
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 35,color: Colors.white))
                 ],
               ), Row(
@@ -75,7 +67,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Text("Total Deaths: ",
                       style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25,color: Colors.white)),
-                  Text(c.totalDeaths.toString(),
+                  Text(gb.totalDeaths.toString(),
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 35,color: Colors.white))
                 ],
               ), Row(
@@ -83,31 +75,17 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Text("New Recovered: ",
                       style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25,color: Colors.white)),
-                  Text(c.newRecovered.toString(),
+                  Text(gb.newRecovered.toString(),
                       style: TextStyle(fontWeight: FontWeight.w600,fontSize: 35,color: Colors.white))
                 ],
               ), Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("Total Recovered: ", style: TextStyle(fontWeight: FontWeight.w700, fontSize: 25,color: Colors.white)),
-                  Text(c.totalRecovered.toString(),
+                  Text(gb.totalRecovered.toString(),
                       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 35,color: Colors.white))
                 ],
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-                child: FlatButton.icon(
-                  icon: Icon(
-                      Icons.flag
-                  ),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/selectCountry');
-                  },
-                  color: Colors.white60,
-                  label: Text("Change Country"),
-                ),
-              ),
-
             ],
           ),
         )
